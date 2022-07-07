@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="angular.js"></script>
+    <style>
+        .red {
+            color:red;
+        }
+        .blue {
+            color:blue;
+        }
+        .bold {
+            font-weight:bold
+        }
+        .strike {
+            text-decoration:line-through
+        }
+    </style>
+</head>
+<body ng-app>
+    <input type="text" name="styles" ng-model="myStyles"/>
+    <div ng-class="myStyles">This is a block</div>
+    <hr />
+    <div ng-class="[s1, s2, s3]">This is a block</div>
+    <input type="text" name="styles" ng-model="s1" /><br />
+    <input type="text" name="styles" ng-model="s2" /><br />
+    <input type="text" name="styles" ng-model="s3" /><br />
+    <hr />
+    <div ng-class="{bold:b, strike:s, red: r}">This is a block</div>
+    <input type="checkbox" name="b" ng-model="b" />Bold
+    <input type="checkbox" name="s" ng-model="s" />Strike
+    <input type="checkbox" name="r" ng-model="r" />Red
+    <hr />
+    <div ng-init="numbers = ['One', 'Two', 'Three','Four','Five']">
+        <ul>
+            <li ng-repeat="val in numbers" ng-bind="val" ng-class-even="'red'" ng-class-odd="'blue'"></li>
+        </ul>
+    </div>
+    <hr />
+    <input type="button" ng-click="mystyles={color:'red', 'background-color': 'yellow', 'font-weight':'bold'}" value="Styles1" />
+    <input type="button" ng-click="mystyles={color:'green', 'background-color': 'black', 'font-weight':'bold'}" value="Styles1" />
+    <input type="button" ng-click="mystyles={color:'blue', 'background-color': 'white', 'font-weight':'bold'}" value="Styles1" />
+    <div ng-style="mystyles">This is style demo</div>
+</body>
+</html>

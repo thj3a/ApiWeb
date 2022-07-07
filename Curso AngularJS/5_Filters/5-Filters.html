@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="angular.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="studentController">
+        Filter: <input type="text" name="studentFilter" ng-model="studentFilter" />
+        <table>
+            <tr ng-repeat="stud in students | filter: studentFilter | orderBy: 'id' | passed: 55">
+                <td>{{stud.id}}</td>
+                <td>{{stud.name | reverse: 'lowercase'}}</td>
+                <td>{{stud.marks}}</td>
+                <td>{{stud.fees | currency}}</td>
+            </tr>
+        </table>
+        Enter Date: <input type="text" ng-model="SomeDate" ng-init="SomeDate='12/15/2015 10:15:30 PM'" /> <br />
+        Medium Format: {{GetDate(SomeDate) | date: 'medium'}}  <br />
+        yyyy-MM-dd HH:mm:ss Z Format: {{GetDate(SomeDate) | date:'yyyy-MM-dd HH:mm:ss Z'}} <br />
+        dd/MMM/yyyy @ h:mma Format: {{GetDate(SomeDate) | date:'dd/MMM/yyyy @ h:mma'}}
+        <hr />
+        <pre>{{students[0] | json}}</pre>
+        <pre>{{students[0] | json:5}}</pre>
+
+    </div>
+    <script>
+        var myApp = angular.module("myApp", [])
+        myApp.controller("studentController", function($scope){
+            $scope.students = [
+                { id: 1, name: 'John', marks: 80, fees: 10000.222222 },
+                { id: 2, name: 'Ravi', marks: 60, fees: 12000.10 },
+                { id: 3, name: 'Joseph', marks: 50, fees: 10100.44 },
+                { id: 4, name: 'Rajesh', marks: 90, fees: 14000 }]
+            $scope.GetDate = function (str) {
+                return new Date(str)
+            }
+        })
+        myApp.filter('reverse', function () {
+            return function (input, args)
+            {
+                input = input || '';
+                var out = "";
+                for (var i = 0; i < input.length; i++) {
+                    out = input.charAt(i) + out;
+                }
+                if (args)
+                {
+                    if (args.toLowerCase() == 'uppercase')
+                        out = out.toUpperCase()
+                    else if (args.toLowerCase() == 'lowercase')
+                        out = out.toLowerCase()
+                }
+                return out
+            }
+        })
+        myApp.filter('passed', function () {
+            return function(arInput, args)
+            {
+                passingMarks = 60
+                if (args)
+                {
+                    passingMarks = Number(args)
+                }
+                var arFiltered = []
+                for (var i = 0; i < arInput.length; i++) {
+                    var s = arInput[i]
+                    if (s.marks > passingMarks)
+                        arFiltered.push(s);
+                }
+                return arFiltered;
+            }
+        })
+    </script>
+</body>
+</html>

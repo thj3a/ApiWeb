@@ -1,0 +1,41 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Department Details</h2>
+
+<div ng-app="mainApp" ng-controller="departmentController">
+    <span>{{generalError}}</span>
+    <span ng-show="errors.length > 0" ng-repeat="err in errors">{{err}}</span>
+    <table>
+        <tr>
+            <td>Id</td>
+            <td>Department</td>
+            <td>Actions</td>
+        </tr>
+        <tr ng-repeat="dept in departments">
+            <td>{{dept.deptId}}</td>
+            <td>{{dept.deptName}}</td>
+            <td><a href="#" id="lnkEdit" ng-click="edit(dept.deptId)">Edit</a>
+            <a href="#" id="lnkDelete" ng-click="delete(dept.deptId)">Delete</a></td>
+        </tr>
+    </table>
+    <hr />
+    <div>
+        Add Department
+        <hr />
+        <form name="deptForm" novalidate>
+            Department Name:
+            <input type="text" name="txtName" ng-model="newDept.deptName" required />
+            <span ng-show="deptForm.txtName.$error.required && deptForm.txtName.$dirty">Please enter department name</span>
+            <br />
+            <input type="button" name="name" value="Insert" ng-disabled="deptForm.$invalid" ng-click="add(newDept)" />
+            <input type="button" name="name" value="Update" ng-disabled="deptForm.$invalid" ng-click="update(newDept)" />
+        </form>
+    </div>
+</div>
+@section scripts
+{
+    <script src="~/CustomScripts/Department/department-service.js"></script>
+    <script src="~/CustomScripts/Department/department-controller.js"></script>
+}

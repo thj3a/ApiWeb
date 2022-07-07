@@ -1,0 +1,23 @@
+﻿@{
+    Layout = null;
+}
+
+<h2>Employee Details</h2>
+
+
+<table>
+    <tr>
+        <td>Id</td>
+        <td>Name</td>
+        <td>Salary</td>
+        <td>Department</td>
+        <td></td>
+    </tr>
+    <tr ng-repeat="emp in employees">
+        <td>{{emp.empId}}</td>
+        <td>{{emp.empName}}</td>
+        <td>{{emp.empSalary}}</td>
+        <td>{{emp.department.deptName}}</td>
+        <td><input type="button" value="Delete" ng-click="delete(emp)" /></td>
+    </tr>
+</table>

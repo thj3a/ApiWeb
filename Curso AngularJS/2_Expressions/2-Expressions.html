@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="angular.js"></script>
+</head>
+<body>
+    <div ng-app ng-init="quantity=1;price=100">
+        Quantity <input type="text" name="qty" ng-model="quantity" /> <br />
+        Price:  <input type="text" name="price" ng-model="price" /> <br />
+        <p>Total Amount {{quantity * price}}</p>
+        <hr />
+        <div ng-init="fname='A';lname='B'">
+            First Name: <input type="text" name="fname" ng-model="fname" /> <br />
+            Last Name: <input type="text" name="fname" ng-model="lname" /> <br />
+            <br />
+            Hello {{fname +" " + lname}}
+        </div>
+        <hr />
+        <div ng-init="person={fname:'A',lname:'B'}">
+            First Name: <input type="text" name="fname" ng-model="person.fname" /> <br />
+            Last Name: <input type="text" name="fname" ng-model="person.lname" /> <br />
+            <br />
+            Hello {{person.fname +" " + person.lname}}
+        </div>
+        <div ng-init="numbers=[1,2,3,4,5]">
+            Sum = {{numbers[0] + numbers[1]}}
+        </div>
+        <div ng-init="people=[{fname:'A1',lname:'B1'},{fname:'A2',lname:'B2'},{fname:'A3',lname:'B3'}]">
+            Hello  {{people[0].fname + " " + people[0].lname}} <br />
+            Hello  {{people[1].fname + " " + people[1].lname}} <br />
+            Hello  {{people[2].fname +  " " +people[2].lname}} <br />
+        </div>
+        <hr />
+        <div ng-init="n1=100;n2=200">
+            First Name: <input type="text" name="n1" ng-model="n1" /> <br />
+            Last Name: <input type="text" name="n2" ng-model="n2" /> <br />
+            <br />
+            Max of {{n1}} and {{n2}} is {{n1>n2?n1:n2}}
+        </div>
+    </div>
+
+</body>
+</html>

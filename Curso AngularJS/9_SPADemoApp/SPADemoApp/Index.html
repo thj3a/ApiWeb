@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="angular.js"></script>
+    <script src="angular-route.js"></script>
+</head>
+<body ng-app="mainApp" ng-controller="StudentController">
+    <a href="#AddStudent">Add Student</a>
+    <a href="#ShowAllStudents">Student All Students</a>
+    <hr />
+        <ng-view></ng-view>
+    <hr />
+    Copyright Sandeep Soni...
+    <script>
+        var mainApp = angular.module("mainApp", ['ngRoute']);
+
+        mainApp.config(['$routeProvider', function ($routeProvider) {
+            $routeProvider
+                .when('/StudentDetails/:RollNo/:Name', { templateUrl: 'templates/StudentDetails.html', controller: 'StudentController', header:'Student Details' })
+                .when('/AddStudent', { templateUrl: 'templates/AddStudent.html', controller: 'StudentController', header: 'Add Student' })
+                .when('/ShowAllStudents', { templateUrl: 'templates/ShowAllStudents.html', controller: 'StudentController', header: 'All Students' })
+                .otherwise({ redirectTo: '/ShowAllStudents' })
+        }])
+
+        mainApp.service("StudentService", function ($q, $http) {
+            this.getAllStudents = function () {
+                var deferred = $q.defer();
+                $http.get("Students.txt")
+                    .success(function (data) { deferred.resolve(data) })
+                    .error(function (msg) { deferred.reject(msg) })
+                return deferred.promise;
+            }
+        })
+
+        mainApp.controller("StudentController", function ($scope, $routeParams,$route, $location, StudentService) {
+            $scope.SelectedStudentRollNo = $routeParams.RollNo
+            $scope.SelectedStudentName = $routeParams.Name
+
+            $scope.$on('$routeChangeSuccess', function (event, current, next) {
+                $scope.header = $route.current.header
+            })
+
+            $scope.students = [];
+            $scope.notification = "";
+            var promise = StudentService.getAllStudents();
+            promise.then(function (studs) { $scope.students = studs }, function (msg) { $scope.notification = msg })
+
+            $scope.SaveStudent = function () {
+                alert('student details are saved');
+                $location.path('#ShowAllStudents')
+            }
+        })
+    </script>
+</body>
+</html>

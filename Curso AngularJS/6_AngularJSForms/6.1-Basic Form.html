@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="angular.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="studentController">
+        <table>
+            <tr ng-repeat="stud in students">
+                <td>{{stud.id}}</td>
+                <td>{{stud.name }}</td>
+                <td>{{stud.marks}}</td>
+                <td>{{stud.fees}}</td>
+                <td><input type="button" ng-click="selectStudent($index)" value="Select"/></td>
+            </tr>
+        </table>
+        <hr />
+        Selected Student {{selectedStudent}}
+        <hr />
+        <form name="studForm">
+            Id: <input type="text" name="id" ng-model="stud.id" /> <br />
+            Name: <input type="text" name="name" ng-model="stud.name" /> <br />
+            Marks: <input type="text" name="marks" ng-model="stud.marks" /><br />
+            Fees: <input type="text" name="fees" ng-model="stud.fees" /><br />
+            <input type="button" name="btnAdd" value="Add" ng-click="addStudent(stud)" />
+    </form>
+    </div>
+    <script>
+        var myApp = angular.module("myApp", [])
+        myApp.controller("studentController", function($scope){
+            $scope.students = [
+                { id: 1, name: 'John', marks: 80, fees: 10000, subject:'Maths' },
+                { id: 2, name: 'Ravi', marks: 60, fees: 12000, subject: 'Science' },
+                { id: 3, name: 'Joseph', marks: 50, fees: 10100,  subject:'Maths'  },
+                { id: 4, name: 'Rajesh', marks: 90, fees: 14000, subject: 'Science' }]
+            $scope.selectedStudent = $scope.students[1]
+            $scope.selectedStudentID = 0;
+            $scope.selectStudent = function(ind)
+            {
+                $scope.selectedStudent = $scope.students[ind]
+            }
+            $scope.addStudent = function(stud)
+            {
+                $scope.students.push(stud)
+                $scope.stud = {}
+            }
+        })
+    </script>
+</body>
+</html>

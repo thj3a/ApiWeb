@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="angular.js"></script>
+</head>
+<body>
+    <div ng-app="">
+        <div>
+            <input type="text" name="txtDemo" ng-model="demoText" />
+            <div>{{demoText}}</div>
+            <div ng-bind="demoText"></div>
+            <div ng:bind="demoText"></div>
+            <div ng_bind="demoText"></div>
+            <div data-ng-bind="demoText"></div>
+            <div x-ng-bind="demoText"></div>
+        </div>
+        <hr />
+        <div>
+            <input type="checkbox" name="chkDemo" ng-model="chkShow" /> Show
+            <div id="id1" ng-show="chkShow">this is a block</div>
+            <div id="id2" ng-if="chkShow">this is a block</div>
+            <input type="button" value="Is ID1 Existing?" onclick="alert(document.getElementById('id1') != null)" />
+            <input type="button" value="Is ID2 Existing" onclick="alert(document.getElementById('id2') != null)" />
+        </div>
+        <hr />
+        <select ng-model="selection" ng-init="selection=1">
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+            <option value="4">Four</option>
+            <option value="5">Five</option>
+            <option value="6">Six</option>
+        </select>
+        <div ng-switch on="selection">
+            <div ng-switch-when="1">One is visible</div>
+            <div ng-switch-when="2">Two is visible</div>
+            <div ng-switch-when="3">Three is visible</div>
+            <div ng-switch-default>This is Default</div>
+        </div>
+        <hr />
+        <div ng-init="people=[{Name:'A1',Age:20},{Name:'A2',Age:30},{Name:'A3',Age:40},{Name:'A4',Age:50}]">
+            <table>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                </tr>
+                <tr ng-repeat="person in people">
+                    <td>{{person.Name}}</td>
+                    <td>{{person.Age}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

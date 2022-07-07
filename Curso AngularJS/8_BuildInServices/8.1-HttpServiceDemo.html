@@ -1,0 +1,44 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="angular.js">
+    </script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="ajaxDemoController">
+        <!--<input type="button" name="btnGetStudents" value="Get Students" ng-click="getStudents()" />-->
+        <table>
+            <tr>
+                <th>RollNo</th>
+                <th>Name</th>
+                <th>Marks</th>
+            </tr>
+            <tr ng-repeat="stud in students">
+                <td>{{stud.RollNo}}</td>
+                <td>{{stud.Name}}</td>
+                <td>{{stud.Marks}}</td>
+            </tr>
+        </table>
+    </div>
+    <script>
+        var myApp = angular.module("myApp", [])
+        myApp.controller("ajaxDemoController", function ($scope, $http) {
+            $scope.students = []
+            //$scope.getStudents = function()
+            //{
+                $http.get("Students.txt").
+                    success(function (data, status, headers, config) {
+                        $scope.students = data;
+                    }).
+                    error(function (msg, status, headers, config, statusText) {
+                        alert(msg)
+                    })
+            //}
+        })
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="angular.js">
+    </script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="ajaxDemoController">
+        <input type="button" name="btnGetStudents" value="Get Students" ng-click="getStudents()" />
+        <table>
+            <tr>
+                <th>RollNo</th>
+                <th>Name</th>
+                <th>Marks</th>
+            </tr>
+            <tr ng-repeat="stud in students | orderBy: 'Marks'">
+                <td>{{stud.RollNo}}</td>
+                <td>{{stud.Name | uppercase}}</td>
+                <td>{{stud.Marks}}</td>
+            </tr>
+        </table>
+    </div>
+    <script>
+        var myApp = angular.module("myApp", [])
+        myApp.service("StudentService", function ($http,$q) {
+            this.getAllStudents = function () {
+                var deferred = $q.defer();
+                $http.get("Students.txt").
+                                success(function (data, status, headers, config) {
+                                    deferred.resolve(data)
+                                }).
+                                error(function (msg, status, headers, config, statusText) {
+                                   deferred.reject(msg)
+                                })
+                return deferred.promise;
+            }
+        })
+
+        myApp.controller("ajaxDemoController", function ($scope, StudentService) {
+            $scope.getStudents = function () {
+                var promise = StudentService.getAllStudents();
+                promise.then(function (data) {
+                    $scope.students = data;
+                },
+                function (err) {
+                    alert(err)
+                },
+                function (notification) {
+                    alert(notification)
+                });
+            }
+        })
+    </script>
+
+</body>
+</html>

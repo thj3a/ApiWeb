@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="peopleController">
+        <table>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+            </tr>
+            <tr ng-repeat="person in people">
+                <td>{{person.firstName}}</td>
+                <td>{{person.lastName}}</td>
+                <td><input type="button" value="Select" ng-click="selectPerson($index)"/></td>
+            </tr>
+        </table>
+        <hr />
+        {{sayHelloSelectedPerson()}}
+    </div>
+
+</body>
+<script>
+    var myApp = angular.module("myApp", [])
+    myApp.controller('peopleController', function($scope){
+        $scope.people=[
+            {firstName:'F1',lastName:'L1'},
+            {firstName:'F2',lastName:'L2'},
+            {firstName:'F3',lastName:'L3'},
+            {firstName:'F4',lastName:'L4'},
+            {firstName:'F5',lastName:'L5'},
+        ]
+        $scope.selectedPerson=$scope.people[0]
+        $scope.selectPerson = function(id){
+            $scope.selectedPerson = $scope.people[id]
+        }
+        $scope.sayHelloSelectedPerson = function(){
+            return "Hello "+$scope.selectedPerson.firstName+" "+$scope.selectedPerson.lastName;
+        }
+    })
+
+
+
+</script>
+</html>

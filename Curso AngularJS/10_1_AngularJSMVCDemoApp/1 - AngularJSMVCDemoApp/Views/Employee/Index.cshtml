@@ -1,0 +1,42 @@
+﻿@model string
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Employee Details</h2>
+<div ng-app="ma" ng-controller="employeeController">
+    <table>
+        <tr>
+            <td>Id</td>
+            <td>Name</td>
+            <td>Salary</td>
+            <td>Department</td>
+        </tr>
+        <tr ng-repeat="emp in employees">
+            <td>{{emp.empId}}</td>
+            <td>{{emp.empName}}</td>
+            <td>{{emp.empSalary}}</td>
+            <td>{{emp.department.deptName}}</td>
+        </tr>
+    </table>
+</div>
+
+@section scripts
+{
+    <script src="~/Scripts/angular.js"></script>
+
+    <script>
+        var ma = angular.module("ma", []);
+
+        ma.service('employeeService', function () {
+            this.getEmployees = function () {
+                return @Html.Raw(Model);
+            }
+        });
+
+        ma.controller("employeeController", function ($scope, employeeService) {
+            $scope.employees = employeeService.getEmployees();
+        });
+
+    </script>
+}

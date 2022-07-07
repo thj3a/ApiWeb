@@ -1,0 +1,26 @@
+﻿@{
+    Layout = null;
+}
+@{
+    ViewBag.Title = "Add";
+}
+
+<h2>Add Employee</h2>
+<hr />
+<div>
+    <span>{{generalError}}</span>
+    <span ng-show="errors.length > 0" ng-repeat="err in errors">{{err}}</span>
+
+    <form name="empForm" novalidate>
+        Emp Name: <input type="text" name="txtName" ng-model="newEmp.empName" required />
+        <span ng-show="empForm.txtName.$error.required && empForm.txtName.$dirty">Please enter name</span>
+        <br />
+        Emp Salary: <input type="number" name="txtSalary" ng-model="newEmp.empSalary" required min="1000" />
+        <span ng-show="empForm.txtSalary.$error.required && empForm.txtSalary.$dirty">Please enter salary</span>
+        <br />
+        <div ng ng-controller="departmentController">
+            Department: <select ng-options="dept.deptName for dept in departments" ng-model="newEmp.selectedDepartment" required></select>
+        </div>
+        <input type="button" name="name" value="Save" ng-disabled="empForm.$invalid" ng-click="add(newEmp)" />
+    </form>
+</div>

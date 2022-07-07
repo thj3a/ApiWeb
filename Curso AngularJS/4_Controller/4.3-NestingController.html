@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="angular.js"></script>
+    <style>
+        div {
+            border: 1px solid red;
+            padding:10px
+        }
+    </style>
+</head>
+<body>
+        <div ng-app="myApp">
+            <div ng-controller="parentController">
+                 {{Name}}, {{Age}}
+                <div ng-controller="childController">
+                    {{Name}}, {{Age}}
+                     <div ng-controller="grandChildController">
+                         {{Name}}, {{Age}}
+                        </div>
+                </div>
+            </div>
+        </div>
+    <script>
+        var myApp = angular.module("myApp",[])
+        myApp.controller('parentController', function ($scope) {
+            $scope.Name = "P1"
+            $scope.Age = 30;
+        })
+        myApp.controller('childController', function ($scope) {
+            $scope.Age = 50;
+        })
+        myApp.controller('grandChildController', function ($scope) {
+            $scope.Name = "GC1"
+            $scope.Age = 70;
+        })
+    </script>
+</body>
+</html>

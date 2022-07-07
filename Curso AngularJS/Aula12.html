@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <style>
+        div{
+            border:1px solid blue;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div ng-app="myApp">
+        <div ng-controller="parentController">
+            {{msg}} hey
+            <div ng-controller="childController">
+                {{msg}}
+                <div ng-controller="grandChildController">
+                    {{msg}}
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    var myApp = angular.module("myApp", [])
+    myApp.controller('parentController',function($scope){
+        $scope.msg = "Hello from parentController";
+    })
+    myApp.controller('childController',function($scope){
+        $scope.msg="Hello from child controller";
+    })
+    myApp.controller('grandChildController',function($scope){
+        $scope.msg="Hello from grand child controller";
+    })
+</script>
+</html>

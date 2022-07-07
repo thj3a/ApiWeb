@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script src="angular.js"></script>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="serviceDemo">
+        <input type="number" ng-model="number" />
+        <input type="button" ng-click="doSquare()" value="Square"/>
+    </div>
+    <script>
+        var myApp = angular.module("myApp", []);
+        //myApp.service("MathService", function () {
+        //    this.multiply = function(a,b)
+        //    {
+        //        return a * b;
+        //    }
+        //    this.divide = function (a, b) {
+        //        return a / b;
+        //    }
+        //})
+
+        myApp.factory("MathService", function () {
+            var factory = {}
+            factory.multiply = function (a, b)
+            {
+                return a * b;
+            }
+            factory.divide = function (a, b) {
+                return a / b;
+            }
+            return factory;
+        })
+
+        myApp.factory("CalculatorService", ['MathService', function (ms) {
+            var factory = {}
+            factory.Square = function(a)
+            {
+                return ms.multiply(a,a)
+            }
+            return factory;
+        }])
+
+        myApp.controller('serviceDemo', ['$scope', 'CalculatorService', function ($scope, cs) {
+            $scope.number = 10;
+            $scope.doSquare = function()
+            {
+                $scope.number = cs.Square($scope.number)
+            }
+        }])
+    </script>
+</body>
+</html>

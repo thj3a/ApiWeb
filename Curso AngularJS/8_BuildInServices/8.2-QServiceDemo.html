@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="angular.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="queueController">
+    <div>
+        PersonName <input type="text" name="txtPerson" ng-model="personName" />
+        <input type="button" name="btnSayHello" value="Say Hello" ng-click="callSayHello()" />
+        <hr />
+        {{greetings}}
+    </div>
+    <script>
+        var myApp = angular.module("myApp", []);
+        myApp.controller("queueController", function ($scope, $q) {
+            function SayHello(name) {
+                var deferred = $q.defer();
+                setTimeout(function () {
+                    if (name == "")
+                        deferred.reject("Anonymous cannot be greeted"); //error
+                    else
+                        deferred.resolve("Hello " + name); //success
+                }, 5000)
+                return deferred.promise
+            }
+            $scope.personName = "";
+            $scope.callSayHello = function () {
+                var promise = SayHello($scope.personName)
+                promise.then(
+                    function(data)      //Success
+                    {
+                        $scope.greetings = data
+                    },
+                    function(err)       //Failure
+                    {
+                        $scope.greetings = err
+                    }
+                )
+            }
+        })
+    </script>
+</body>
+
+</html>

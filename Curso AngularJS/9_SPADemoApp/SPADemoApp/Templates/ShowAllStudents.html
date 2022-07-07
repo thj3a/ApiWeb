@@ -1,0 +1,14 @@
+﻿<b>{{header}}</b> <br />
+<table>
+    <tr>
+        <th>RollNo</th>
+        <th>Name</th>
+        <th>Marks</th>
+    </tr>
+    <tr ng-repeat="stud in students">
+        <td>{{stud.RollNo}}</td>
+        <td>{{stud.Name}}</td>
+        <td>{{stud.Marks}}</td>
+        <td><a href="#StudentDetails/{{stud.RollNo}}/{{stud.Name}}">Details</a></td>
+    </tr>
+</table>

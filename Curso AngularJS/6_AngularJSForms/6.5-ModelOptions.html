@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="angular.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="demoController">
+    <form action="/" name="myForm" method="post">
+        First Name: <input type="text" name="txtFirstName" ng-model="user.firstName" required
+       ng-model-options="{updateOn: 'default blur mouseover',
+                                            debounce: {'default': 5000, 'blur': 0} ,
+                                            getterSetter: true,
+                                            allowInvalid: true }" /> <br />
+        Last Name: <input type="text" name="txtLastName" ng-model="user.lastName" /> <br />
+        <input type="button" name="btnFullName" value="GetFullName" ng-click="fullName()" />
+        <input type="time" name="txtDemo" ng-model="demoTime" ng-model-options="{timezone: 'GMT'}" /> {{demoTime}}
+    </form>
+    <pre>{{user | json}} </pre>
+    <script>
+        var myApp = angular.module("myApp", [])
+        myApp.controller('demoController', function ($scope) {
+            $scope.user = { firstName: getSetFirstNameValue, lastName: 'Soni' }
+            $scope.fullName = function () {
+                alert(priFirstName + " " + $scope.user.lastName)
+            }
+            var priFirstName = 'SANDEEP'
+            function getSetFirstNameValue(newValue)
+            {
+                if (angular.isDefined(newValue))
+                    priFirstName = newValue.toUpperCase();
+                return priFirstName;
+            }
+
+        })
+    </script>
+</body>
+</html>

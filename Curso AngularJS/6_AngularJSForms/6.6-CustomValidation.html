@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="angular.js"></script>
+    <script src="jquery-2.1.1.js"></script>
+</head>
+<body ng-app="myApp" ng-controller="validationController">
+    <form action="/" method="post" name="myForm">
+        <input type="email" name="txtEmail" ng-model="email" />
+        <span ng-show="myForm.txtEmail.$error.email">Please enter valid email format</span> 
+        <br />
+        Model Value: {{myForm.txtEmail.$modelValue}} <br />
+        View Value: {{myForm.txtEmail.$viewValue}}
+        <hr />
+        <input type="text" style="color:blue" name="txtNumber" ng-model="number1" integer />
+        <span ng-show="myForm.txtNumber.$error.integer">Please enter valid Integer Number</span>
+        <br />
+        Model Value: {{myForm.txtNumber.$modelValue}} <br />
+        View Value: {{myForm.txtNumber.$viewValue}}
+        <hr />
+    </form>
+    <script>
+        var myApp = angular.module("myApp", [])
+        myApp.controller("validationController", function ($scope) {
+
+        })
+        myApp.directive("integer", function () {
+            return {
+                require: 'ngModel',
+                link: function(scope, elem, attrs, ctrl)
+                {
+                    var originalColor = $(elem).css('color')
+      
+                    ctrl.$validators.integer  = function(modelValue, viewValue)
+                    {
+                        if (ctrl.$isEmpty(modelValue))
+                            return true;
+                        if (isNaN(viewValue) || viewValue.toString().indexOf('.') != -1)
+                        {
+                            $(elem).css('color','red')
+                            return false;
+                        }
+                        $(elem).css('color', originalColor)
+                        return true;
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>

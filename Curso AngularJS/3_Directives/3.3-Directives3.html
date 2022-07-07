@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="angular.js"></script>
+    <style>
+        .red
+        {
+            color:red;
+        }
+    </style>
+</head>
+<body ng-app ng-init="counter=0;hover=false">
+    Counter: <span ng-bind="counter"></span> <br />
+    Data: <span ng-bind="data"></span> <br />
+
+    <button ng-click="counter = counter + 1" 
+                ng-mouseenter="hover=true" 
+                ng-mouseleave="hover=false" 
+                ng-class="{red:hover}">Increment Counter</button>
+    <input type="text" ng-model="data" ng-change="counter = counter + 1" />
+    <input type="checkbox" ng-model="data" ng-change="counter = counter + 1" />
+
+    <br />
+    <input type="checkbox" name="master" ng-model="master" /> Master copied into
+    <input type="checkbox" name="master" ng-checked="master" /> 
+    <hr />
+    <input ng-keypress="key1=$event.key; key2=$event.keyCode">
+    Key Pressed: {{key1}}, Its Code = {{key2}}
+    <br />
+    <input ng-keydown="key3=$event.key; key4=$event.keyCode">
+    Key Down: {{key3}}, Its Code = {{key4}}
+
+    <div ng-init="cut=false; copy=false; paste=false">
+        <input ng-cut="cut=true" ng-copy="copy=true" ng-paste="paste=true">
+        <br /><br />
+        Cut: {{cut}} <br />
+        Copy: {{copy}}<br />
+        Paste: {{paste}}
+    </div>
+
+</body>
+</html>

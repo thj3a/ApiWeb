@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="angular.js"></script>
+    <style>
+        form input.ng-untouched {
+            background-color:yellow
+        }
+        form input.ng-touched {
+            background-color: red
+        }
+    </style>
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="studentController">
+        <form action="/" method="post" name="studentForm">
+            Id: <input type="text" name="txtId" ng-model="selectedStudent.id" /> <br />
+            Name: <input type="text" name="txtName" ng-model="selectedStudent.name" /> <br />
+            Marks: <input type="text" name="txtMarks" ng-model="selectedStudent.marks" /> <br />
+            <input type="button" name="btnSave" value="Save" ng-click="save()" />
+        </form>
+        Pristine: {{studentForm.$pristine}} <br />
+        Dirty: {{studentForm.$dirty}} <br />
+        Un-Touched (Name): {{studentForm.txtName.$untouched}}
+    </div>
+    <script>
+        var myApp = angular.module("myApp", [])
+        myApp.controller("studentController", function($scope){
+            $scope.students = [
+                { id: 1, name: 'John', marks: 80, fees: 10000, subject:'Maths' },
+                { id: 2, name: 'Ravi', marks: 60, fees: 12000, subject: 'Science' },
+                { id: 3, name: 'Joseph', marks: 50, fees: 10100,  subject:'Maths'  },
+                { id: 4, name: 'Rajesh', marks: 90, fees: 14000, subject: 'Science' }]
+            $scope.selectedStudent = $scope.students[0]
+            $scope.selectedStudentID = 0;
+            $scope.selectStudent = function(ind)
+            {
+                $scope.selectedStudent = $scope.students[ind]
+            }
+            $scope.save = function()
+            {
+                alert('data is saved');
+                $scope.studentForm.$setPristine();
+                $scope.studentForm.$setUntouched();
+            }
+        })
+    </script>
+</body>
+</html>
