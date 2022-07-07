@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div ng-app="myApp" ng-controller="citiesController">
+    
+    <div class="text-center">
+            <h1>Cities</h1>
+            <p>This is an API to get information about cities around the world.</p>
+            <span>{{generalError}}</span>
+            <span ng-show="errors.length > 0" ng-repeat="err in errors">{{err}}</span>
+    </div>
+    <div>
+        <span>{{generalError}}</span>
+        <table>
+            <td>City Name</td>
+            <td>State</td>
+            <td>Country</td>
+            <td>Population</td>
+            <tr ng-repeat="city in cities">
+                <td>{{city.name}}</td>
+                <td>{{city.state}}</td>
+                <td>{{city.country}}</td>
+                <td>{{city.population}}</td>
+            </tr>
+        </table>
+    </div>
+   
+        
+        
+    <div>
+        
+        Add City {{1+1}}
+        <hr />
+        <form name="cityForm" novalidate>
+            <table>
+                <tr>                
+                    <td align="right">City Name:</td> 
+                    <td><input type="text" name="txtName" ng-model="newCity.Name" required />
+                        <span ng-show="cityForm.txtName.$error.required && cityForm.txtName.$dirty">Please enter city name</span></td>
+                </tr>
+                <tr>
+                    <td align="right"> State: </td>
+                    <td> <input type="text" name="txtState" ng-model="newCity.State" /> </td>
+                </tr>
+                <tr>
+                    <td align="right">Country: </td>
+                    <td><input type="text" name="txtCountry" ng-model="newCity.Country" /></td>
+                </tr>
+                <tr>
+                    <td align="right">Population:</td>
+                    <td> <input type="number" name="txtPopulation" ng-model="newCity.Population" /></td>
+                </tr>
+            </table>
+        </form>
+
+    </div>
+    
+</div>
