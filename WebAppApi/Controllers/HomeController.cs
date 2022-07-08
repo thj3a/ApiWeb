@@ -18,25 +18,35 @@ namespace WebAppApi.Controllers
     {
       _logger = logger;
     }
-    public IEnumerable Get()
+    public string? GetCities()
     {
-      return _cityDB.GetCities();
-    }
-
-    // GET api/employeeapi/5
-    public Cities Get(int id)
-    {
-      return _cityDB.GetCity(id);
-    }
-    public IActionResult Index()
-    {
-
       //var json = System.Web.Http.GlobalConfiguration.Configuration.Formatters.JsonFormatter;
       //json.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
       //json.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
       var settings = new JsonSerializerSettings() { ContractResolver = new CamelCasePropertyNamesContractResolver(), ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore };
-      object model = JsonConvert.SerializeObject(Get(), Formatting.None, settings);
-      return View(model); 
+      var result = _cityDB.GetCities();
+      var model = JsonConvert.SerializeObject(result, Formatting.None, settings);
+      return model;
+    }
+
+    public Cities GetCity(int id)
+    {
+      return _cityDB.GetCity(id);
+    }
+    public IEnumerable Get()
+    {
+      return _cityDB.GetCities();
+    }
+    public IActionResult Index()
+    {
+
+      ////var json = System.Web.Http.GlobalConfiguration.Configuration.Formatters.JsonFormatter;
+      ////json.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
+      ////json.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+      //var settings = new JsonSerializerSettings() { ContractResolver = new CamelCasePropertyNamesContractResolver(), ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore };
+      //object model = JsonConvert.SerializeObject(Get(), Formatting.None, settings);
+      //return View(model);
+      return View();
     }
 
     public IActionResult Privacy()

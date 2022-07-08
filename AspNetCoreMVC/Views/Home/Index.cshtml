@@ -11,10 +11,12 @@
         </div>
 
         <table>
-            <td>City Name</td>
-            <td>State</td>
-            <td>Country</td>
-            <td>Population</td>
+            <tr>
+                <th>City Name</th>
+                <th>State</th>
+                <th>Country</th>
+                <th>Population</th>
+            </tr>
             <tr ng-repeat="city in cities">
                 <td>{{city.name}}</td>
                 <td>{{city.state}}</td>
@@ -26,7 +28,7 @@
         <hr />
         
         <div>
-            Add City {{1+1}}
+            Add City
             <hr />
             <form name="cityForm" novalidate>
                 <table>

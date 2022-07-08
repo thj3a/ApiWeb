@@ -16,3 +16,15 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+td {
+    border: 1px solid black;
+    width: 150px;
+    border-color: #96D4D4;
+}
+th {
+    border-color: #96D4D4;
+}
+tr {
+    border-color: #96D4D4;
+}

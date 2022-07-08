@@ -1,35 +1,40 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-<body >
-    <div ng-app="myApp" ng-controller="cityController">
+<style>
+      table
+      {
+        border: 1px solid black;
+      }
+</style>
+<div ng-app="myApp" ng-controller="citiesController">
     
-        <div class="text-center">
-                <h1>Cities</h1>
-                <p>This is an API to get information about cities around the world.</p>
-                <span>{{generalError}}</span>
-                <span ng-show="errors.length > 0" ng-repeat="err in errors">{{err}}</span>
-        </div>
-        
-        <div>
+    <div class="text-center">
+            <h1>Cities</h1>
+            <p>This is an API to get information about cities around the world.</p>
             <span>{{generalError}}</span>
-            <table>
-                <td>City Name</td>
-                <td>State</td>
-                <td>Country</td>
-                <td>Population</td>
-                <tr ng-repeat="city in cities">
-                    <td>{{city.cityName}}</td>
-                    <td>{{city.stateId}}</td>
-                    <td>{{city.countryId}}</td>
-                    <td>{{city.population}}</td>
-                </tr>
-            </table>
-        </div>
-   
+            <span ng-show="errors.length > 0" ng-repeat="err in errors">{{err}}</span>
+    </div>
         
+    <div>
+        <span>{{generalError}}</span>
+        <table>
+            <td align="center">City Name </td>
+            <td align="center">State</td>
+            <td align="center">Country</td>
+            <td align="center">Population</td>
+            <tr ng-repeat="city in cities.data">
+                <td align="center">{{city.cityName}}</t>
+                <td align="center">{{city.stateId}}</td>
+                <td align="center">{{city.countryId}}</td>
+                <td align="center" >{{city.population}}</td>
+            </tr>
+        </table>
+    </div>
+    <br />
+    <hr />
         
-      <div>
+    <div>
         
         Add City {{1+1}}
         <hr />
@@ -57,24 +62,5 @@
 
     </div>
     
-    </div>
+</div>
 
- <script src="~/js/angular.js"></script>
-    <script>
-        var myApp = angular.module("myApp", []);
-
-        myApp.controller('cityController', ['$scope','cityService', function($scope, cityService) {
-                    $scope.cities = cityService.getCities();
-
-                }])
-
-        myApp.service('cityService', ['$http', '$q', function($http, $q) {
-            this.getCities = function() {
-                return @Html.Raw(Model);
-            }
-
-        }])
-        
-
-    </script>
-</body>
