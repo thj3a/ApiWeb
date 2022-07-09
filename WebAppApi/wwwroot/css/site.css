@@ -28,3 +28,20 @@ th {
 tr {
     border-color: #96D4D4;
 }
+
+.outer {
+    overflow-y: auto;
+    height: 300px;
+}
+
+.outer {
+    width: 100%;
+    -layout: fixed;
+}
+
+.outer th {
+    text-align: left;
+    top: 0;
+    position: sticky;
+    background-color: white;
+}

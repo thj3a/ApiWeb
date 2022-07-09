@@ -1,13 +1,17 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-<style>
-      table
-      {
-        border: 1px solid black;
-      }
-</style>
-<div ng-app="myApp" ng-controller="citiesController">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>MYCRUD</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body ng-app="myApp" ng-controller="citiesController">
     
     <div class="text-center">
             <h1>Cities</h1>
@@ -16,28 +20,16 @@
             <span ng-show="errors.length > 0" ng-repeat="err in errors">{{err}}</span>
     </div>
         
-    <div>
         <span>{{generalError}}</span>
-        <table>
-            <td align="center">City Name </td>
-            <td align="center">State</td>
-            <td align="center">Country</td>
-            <td align="center">Population</td>
-            <tr ng-repeat="city in cities.data">
-                <td align="center">{{city.cityName}}</t>
-                <td align="center">{{city.stateId}}</td>
-                <td align="center">{{city.countryId}}</td>
-                <td align="center" >{{city.population}}</td>
-            </tr>
-        </table>
-    </div>
+    
+        <br />
+        <hr />
+        
     <br />
     <hr />
         
     <div>
-        
-        Add City {{1+1}}
-        <hr />
+        Insert new City
         <form name="cityForm" novalidate>
             <table>
                 <tr>                
@@ -55,12 +47,68 @@
                 </tr>
                 <tr>
                     <td align="right">Population:</td>
-                    <td> <input type="number" name="txtPopulation" ng-model="newCity.Population" /></td>
+                    <td> <input type="number" onchange="this.value = parseInt(this.value);" name="txtPopulation" ng-model="newCity.Population" /></td>
                 </tr>
             </table>
         </form>
 
     </div>
     
-</div>
+
+     <div class="container-fluid col-md-11">
+      <div class="row">
+
+        <div class="col-lg-12">
+
+   
+            <div class="card-body">
+              <div class="outer">
+
+                <table class="table table-hover bg-light">
+                    
+                  <thead>
+                    <tr>
+                      <th scope="col">City Name</th>
+                      <th scope="col">State ID</th>
+                      <th scope="col">Country ID</th>
+                      <th scope="col">Population</th>
+                      <th scope="col">Editar</th>
+                      <th scope="col">Eliminar</th>
+                    </tr>
+                  </thead>
+                  
+                  <tbody>
+                      <tr ng-repeat="city in cities.data">
+                        <td>{{city.cityName}}</td>
+                        <td>{{city.stateId}}</td>
+                        <td>{{city.countryId}}</td>
+                        <td>{{city.population}}</td>
+                        <td> <a class="btn btn-success" href="#">
+                            <i class="fa fa-edit"></i>
+                          </a>
+                        </td>
+                        <td> <a class="btn btn-danger" href="#">
+                            <i class="fa fa-trash"></i>
+                          </a>
+                        </td>
+                      </tr>
+                  </tbody>
+                  
+                </table>
+              </div>
+
+            </div>
+
+     
+
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+    
+</body>
 
