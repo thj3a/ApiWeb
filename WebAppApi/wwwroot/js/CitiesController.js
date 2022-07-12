@@ -83,6 +83,16 @@ myApp.controller('citiesController', ['$scope', 'citiesService', function ($scop
         );
     };
 
+
+
+    $scope.toggleShowTable = function(fgShow){
+        if (fgShow == true)
+            fgShow == false
+        else
+            fgShow == true
+    }
+
     //Call get method to intialize collection
     $scope.get();
+    $scope.fgShowTable == false;
 }])

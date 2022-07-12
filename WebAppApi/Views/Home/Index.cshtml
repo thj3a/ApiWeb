@@ -6,7 +6,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>MYCRUD</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
@@ -14,7 +13,7 @@
 <body ng-app="myApp" ng-controller="citiesController">
     
     <div class="text-center">
-            <h1>Cities</h1>
+            <h1>API of Cities Data</h1>
             <p>This is an API to get information about cities around the world.</p>
             <span>{{generalError}}</span>
             <span ng-show="errors.length > 0" ng-repeat="err in errors">{{err}}</span>
@@ -25,37 +24,21 @@
         <br />
         <hr />
         
-    <br />
-    <hr />
+     <button class="button" name="GetBtn"> Get Cities Information <span></span></button>
+     <button class="button" ng-click="add(newCity)"> Insert New City<span></span></button>
         
     <div>
-        Insert new City
-        <form name="cityForm" novalidate>
-            <table>
-                <tr>                
-                    <td align="right">City Name:</td> 
-                    <td><input type="text" name="txtName" ng-model="newCity.Name" required />
-                        <span ng-show="cityForm.txtName.$error.required && cityForm.txtName.$dirty">Please enter city name</span></td>
-                </tr>
-                <tr>
-                    <td align="right"> State: </td>
-                    <td> <input type="text" name="txtState" ng-model="newCity.State" /> </td>
-                </tr>
-                <tr>
-                    <td align="right">Country: </td>
-                    <td><input type="text" name="txtCountry" ng-model="newCity.Country" /></td>
-                </tr>
-                <tr>
-                    <td align="right">Population:</td>
-                    <td> <input type="number" onchange="this.value = parseInt(this.value);" name="txtPopulation" ng-model="newCity.Population" /></td>
-                </tr>
-            </table>
-        </form>
-
+        <h4 class="text-center"> Insert new City Data</h4>
+        <label class="inp" for="inp"> <input placeholder="" id="inp" type="text" name="txtName" ng-model="newCity.cityName"/> <span class="label">City's Name</span> <span class="focus-bg"></span> </label>
+        <label class="inp" for="inp"> <input placeholder="" id="inp" type="text" name="txtState" ng-model="newCity.StateId"/> <span class="label">City's State</span> <span class="focus-bg"></span> </label>
+        <label class="inp" for="inp"> <input placeholder="" id="inp" type="text" name="txtCountry" ng-model="newCity.CountryId"/> <span class="label">City's Country</span> <span class="focus-bg"></span> </label>
+        <label class="inp" for="inp"> <input placeholder="" id="inp" type="number" name="txtPopulation" ng-model="newCity.Population" onchange="this.value = parseInt(this.value);"/> <span class="label">City's Population</span> <span class="focus-bg"></span> </label>
     </div>
     
+    <br />
+    <hr />
 
-     <div class="container-fluid col-md-11">
+     <div class="container-fluid col-md-11" *ngIf='fgShowTable'>
       <div class="row">
 
         <div class="col-lg-12">

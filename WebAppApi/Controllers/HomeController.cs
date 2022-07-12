@@ -5,6 +5,7 @@ using System.Diagnostics;
 using WebAppApi.Models;
 using WebAppApi.Data;
 using System.Collections;
+using System.Net;
 
 namespace WebAppApi.Controllers
 {
@@ -18,11 +19,14 @@ namespace WebAppApi.Controllers
     {
       _logger = logger;
     }
+
+    
+    public IActionResult Index()
+    {
+      return View();
+    }
     public string? GetCities()
     {
-      //var json = System.Web.Http.GlobalConfiguration.Configuration.Formatters.JsonFormatter;
-      //json.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
-      //json.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
       var settings = new JsonSerializerSettings() { ContractResolver = new CamelCasePropertyNamesContractResolver(), ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore };
       var result = _cityDB.GetCities();
       var model = JsonConvert.SerializeObject(result, Formatting.None, settings);
@@ -33,22 +37,46 @@ namespace WebAppApi.Controllers
     {
       return _cityDB.GetCity(id);
     }
-    public IEnumerable Get()
+    
+    public HttpResponseMessage Post(HttpRequestMessage request, [FromBody] Cities city)
     {
-      return _cityDB.GetCities();
-    }
-    public IActionResult Index()
-    {
-
-      ////var json = System.Web.Http.GlobalConfiguration.Configuration.Formatters.JsonFormatter;
-      ////json.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
-      ////json.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-      //var settings = new JsonSerializerSettings() { ContractResolver = new CamelCasePropertyNamesContractResolver(), ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore };
-      //object model = JsonConvert.SerializeObject(Get(), Formatting.None, settings);
-      //return View(model);
-      return View();
+      //throw new ApplicationException("a");
+      if (ModelState.IsValid && city != null)
+      {
+        _cityDB.Insert(city);
+        //After inserting we are returning all the employee records.
+        return request.CreateResponse(HttpStatusCode.OK, _cityDB.GetCities());
+      }
+      else
+        return request.CreateResponse(HttpStatusCode.BadRequest, GetErrorMessages());
     }
 
+    private IEnumerable<string> GetErrorMessages()
+    {
+      //Returns an array of error messages.
+      return ModelState.Values.SelectMany(x => x.Errors.Select(e => e.ErrorMessage));
+    }
+
+    // PUT api/employeeapi/5
+    public HttpResponseMessage Put(HttpRequestMessage request, int id, [FromBody] Cities city)
+    {
+      //throw new ApplicationException("a");
+      if (ModelState.IsValid && city != null)
+      {
+        _cityDB.Update(city);
+        //After inserting we are returning all the employee records.
+        return request.CreateResponse(HttpStatusCode.OK, _cityDB.GetCities());
+      }
+      else
+        return request.CreateResponse(HttpStatusCode.BadRequest, GetErrorMessages());
+    }
+
+    // DELETE api/employeeapi/5
+    public HttpResponseMessage Delete(HttpRequestMessage request, int id)
+    {
+      _cityDB.Delete(id);
+      return request.CreateResponse(HttpStatusCode.OK, _cityDB.GetCities());
+    }
     public IActionResult Privacy()
     {
       return View();
